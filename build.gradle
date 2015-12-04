@@ -1,0 +1,32 @@
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'org.axonframework:axon-core:2.4'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.togglz:togglz-servlet:2.2.0.Final'
+    compile 'org.togglz:togglz-core:2.2.0.Final'
+    compile 'org.togglz:togglz-console:2.2.0.Final'
+    compile 'org.togglz:togglz-spring-web:2.2.0.Final'
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.assertj:assertj-core:2.0.0'
+    testCompile 'org.axonframework:axon-test:2.4'
+
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE")
+    }
+}
