@@ -21,6 +21,6 @@ public class CreateUserCommandHandler {
     @CommandHandler
     public void on(CreateUserCommand command){
 
-        users.add(new User(command.getId()));
+        users.add(new User(command.getId(),command.getUserName()));
     }
 }

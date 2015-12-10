@@ -13,8 +13,8 @@ public class User extends AbstractAnnotatedAggregateRoot {
     public User() {
     }
 
-    public User(String userId) {
-        apply(new UserCreatedEvent(userId));
+    public User(String userId, String userName) {
+        apply(new UserCreatedEvent(userId, userName));
     }
 
     @EventSourcingHandler

@@ -19,9 +19,10 @@ public class CreateUserCommandHandlerTest {
         fixture.registerAnnotatedCommandHandler(handler);
 
         String userId = "userId";
+        String userName = "userName";
         fixture.
                 given().
-                when(new CreateUserCommand(userId)).
-                expectEvents(new UserCreatedEvent(userId));
+                when(new CreateUserCommand(userId, userName)).
+                expectEvents(new UserCreatedEvent(userId, userName));
     }
 }

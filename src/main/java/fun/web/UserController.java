@@ -1,19 +1,26 @@
 package fun.web;
 
 
+import fun.commands.CreateUserCommand;
 import fun.configuration.MyFeatures;
 import fun.domains.model.User;
-import org.springframework.http.HttpStatus;
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
-import static org.springframework.http.ResponseEntity.status;
+import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    CommandGateway commandGateway;
 
     @RequestMapping(value = "/api/user", method = RequestMethod.GET)
     @ResponseBody
@@ -23,12 +30,12 @@ public class UserController {
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> addUser(@RequestBody String userName) {
-        System.out.println("userName = " + userName);
+    public ResponseEntity<?> registerUser(@RequestBody String userName) {
         if (MyFeatures.CAN_CREATE_USER.isActive()) {
-            return status(HttpStatus.OK).build();
+            commandGateway.send(new CreateUserCommand(UUID.randomUUID().toString(),userName));
+            return ok().build();
         } else {
-            return status(HttpStatus.FORBIDDEN).build();
+            return badRequest().build();
         }
     }
 }
