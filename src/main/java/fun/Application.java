@@ -13,7 +13,7 @@ import org.togglz.core.manager.FeatureManager;
 @SpringBootApplication
 @ComponentScan("fun")
 @EnableAutoConfiguration
-@EnableMongoRepositories
+@EnableMongoRepositories(basePackages = "fun.query.repository")
 public class Application {
 
     public static void main(String... args) {

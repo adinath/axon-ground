@@ -5,4 +5,5 @@ build/
 .gradle
 .vagrant
 .DS_Store
+event.store/
 
