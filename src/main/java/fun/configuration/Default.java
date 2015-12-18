@@ -13,6 +13,7 @@ import org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPos
 import org.axonframework.eventstore.EventStore;
 import org.axonframework.eventstore.fs.FileSystemEventStore;
 import org.axonframework.eventstore.fs.SimpleEventFileResolver;
+import org.axonframework.eventstore.mongo.MongoEventStore;
 import org.springframework.context.annotation.Bean;
 
 import java.io.File;
