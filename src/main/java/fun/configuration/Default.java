@@ -1,6 +1,8 @@
 package fun.configuration;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.Mongo;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
 import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor;
@@ -13,7 +15,10 @@ import org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPos
 import org.axonframework.eventstore.EventStore;
 import org.axonframework.eventstore.fs.FileSystemEventStore;
 import org.axonframework.eventstore.fs.SimpleEventFileResolver;
+import org.axonframework.eventstore.mongo.DefaultMongoTemplate;
 import org.axonframework.eventstore.mongo.MongoEventStore;
+import org.axonframework.serializer.*;
+import org.axonframework.serializer.json.JacksonSerializer;
 import org.springframework.context.annotation.Bean;
 
 import java.io.File;
@@ -51,8 +56,12 @@ public class Default {
     }
 
     @Bean
-    public EventStore eventStore() {
-        return new FileSystemEventStore(new SimpleEventFileResolver(new File(EVENT_STORE_FILE_PATH)));
+    public EventStore eventStore(Mongo mongo, Serializer serializer) {
+        return new MongoEventStore(serializer , new DefaultMongoTemplate(mongo));
+    }
+
+    @Bean Serializer serializer(){
+        return new JacksonSerializer(new ObjectMapper());
     }
 
     @Bean
