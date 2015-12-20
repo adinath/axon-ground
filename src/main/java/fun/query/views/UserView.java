@@ -6,13 +6,19 @@ public class UserView {
 
     @Id
     private String userId;
+    private String userName;
 
-    public UserView(String userId) {
+    public UserView(String userId, String userName) {
 
         this.userId = userId;
+        this.userName = userName;
     }
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }
