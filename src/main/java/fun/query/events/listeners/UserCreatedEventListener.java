@@ -25,6 +25,8 @@ public class UserCreatedEventListener{
     }
 
     private UserView createFromEvent(UserCreatedEvent userCreatedEvent) {
-        return new UserView(userCreatedEvent.getUserId(), userCreatedEvent.getUserName());
+        return new UserView(userCreatedEvent.getUserId(),
+                userCreatedEvent.getUserName(),
+                userCreatedEvent.getDateOfBirth());
     }
 }

@@ -6,6 +6,7 @@ import fun.configuration.MyFeatures;
 import fun.domains.model.User;
 import fun.query.repository.UserRepository;
 import fun.query.views.UserView;
+import fun.web.request.AddUserRequest;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +35,14 @@ public class UserController {
 
     @RequestMapping(value = "/api/user", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> registerUser(@RequestBody String userName) {
+    public ResponseEntity<?> registerUser(@RequestBody AddUserRequest request) {
 
         if (MyFeatures.CAN_CREATE_USER.isActive()) {
             UUID userId = UUID.randomUUID();
-            commandGateway.send(new CreateUserCommand(userId.toString(),userName));
+            CreateUserCommand command = new CreateUserCommand(userId.toString(),
+                    request.getUserName(),
+                    request.getDateOfBirth());
+            commandGateway.send(command);
             Map returnMap = new HashMap();
             returnMap.put("userId", userId);
             return ok().body(returnMap);

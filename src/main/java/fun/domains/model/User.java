@@ -5,6 +5,8 @@ import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 
+import java.util.Date;
+
 public class User extends AbstractAnnotatedAggregateRoot {
 
     @AggregateIdentifier
@@ -13,8 +15,8 @@ public class User extends AbstractAnnotatedAggregateRoot {
     public User() {
     }
 
-    public User(String userId, String userName) {
-        apply(new UserCreatedEvent(userId, userName));
+    public User(String userId, String userName, Date dateOfBirth) {
+        apply(new UserCreatedEvent(userId, userName, dateOfBirth));
     }
 
     @EventSourcingHandler
