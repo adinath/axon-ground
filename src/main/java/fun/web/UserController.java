@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.notFound;
@@ -37,10 +35,13 @@ public class UserController {
     @RequestMapping(value = "/api/user", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> registerUser(@RequestBody String userName) {
+
         if (MyFeatures.CAN_CREATE_USER.isActive()) {
             UUID userId = UUID.randomUUID();
             commandGateway.send(new CreateUserCommand(userId.toString(),userName));
-            return ok().body(userId);
+            Map returnMap = new HashMap();
+            returnMap.put("userId", userId);
+            return ok().body(returnMap);
         } else {
             return badRequest().build();
         }
