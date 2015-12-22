@@ -37,6 +37,8 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<?> registerUser(@RequestBody AddUserRequest request) {
 
+        System.out.println("request.getDateOfBirth() = " + request.getDateOfBirth());
+
         if (MyFeatures.CAN_CREATE_USER.isActive()) {
             UUID userId = UUID.randomUUID();
             CreateUserCommand command = new CreateUserCommand(userId.toString(),

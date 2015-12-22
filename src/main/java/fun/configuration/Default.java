@@ -22,6 +22,7 @@ import org.axonframework.serializer.json.JacksonSerializer;
 import org.springframework.context.annotation.Bean;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 public class Default {
@@ -60,8 +61,14 @@ public class Default {
         return new MongoEventStore(serializer , new DefaultMongoTemplate(mongo));
     }
 
-    @Bean Serializer serializer(){
-        return new JacksonSerializer(new ObjectMapper());
+    @Bean Serializer serializer(ObjectMapper objectMapper){
+        return new JacksonSerializer(objectMapper);
+    }
+
+    @Bean ObjectMapper objectMapper(){
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        return objectMapper;
     }
 
     @Bean
