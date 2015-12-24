@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 public class Default {
-    private final String EVENT_STORE_FILE_PATH = "event.store";
 
     @Bean
     public AnnotationEventListenerBeanPostProcessor annotationEventListenerBeanPostProcessor() {
